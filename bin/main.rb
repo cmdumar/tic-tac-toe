@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Game Procedure
-# =================================================================
+# ====================================
 # Methods and classes for Game.
 # Two players needed to play game.
 # We need to initialize a game board
