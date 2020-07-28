@@ -50,12 +50,36 @@ class Game
   def user_inputs_index
     print "#{@plyr1}'s Turn: "
     @user_input = gets.chomp
-    @user_input.is_a?(Numeric) ? @user_input : @user_input.to_i
+    # @user_input = @user_input.is_a?(Numeric) ? @user_input : @user_input.to_i
+    if !@user_input.is_a?(Numeric) or (@user_input.to_i < 0 or @user_input.to_i > 10)
+        print "Input number between 1 and 9: "
+        @user_input = gets.chomp
+    end    
     print "#{@plyr2}'s Turn: "
     @user_input = gets.chomp
+    #  @user_input = @user_input.is_a?(Numeric) ? @user_input : @user_input.to_i
+    if !@user_input.is_a?(Numeric) or (@user_input.to_i < 0 or @user_input.to_i > 10)
+        print "Input number between 1 and 9: "
+        @user_input = gets.chomp
+    end
+    @game_over = false
+  end
+
+  def playing
+     game_on = true
+     i = 0
+     while game_on
+        display_board
+        if i == 4
+            puts "Game is over"
+            game_on = false   
+        end
+        i += 1
+     end       
   end
 end
 
 game = Game.new
 game.start_game
-game.display_board
+game.playing
+
