@@ -29,4 +29,4 @@ require_relative '../lib/game'
 
 game = Game.new
 game.start_game
-game.display_board
+game.playing
