@@ -8,6 +8,8 @@ class Game
     @plyr1 = gets.chomp
     print 'Player 2: '
     @plyr2 = gets.chomp
+    # validate player input
+
   end
 
   def display_board
@@ -33,6 +35,25 @@ class Game
       end
       @user_input.positive? && @user_input < 10 ? get_num = false : nil
     end
+    
+  end
+
+  def position_taken?(idx)
+    !(@board[idx].nil? || @board[idx] == " ")
+  end
+
+  def valid_move?(idx)
+    idx.between?(0,8) && !position_taken?(idx)
+  end
+
+  def turn_count
+    turn = 0
+    @board.each do |index|
+      if index == "X" || index == "Y"
+        turn += 1
+      end
+    end
+    return turn
   end
 
   def playing
