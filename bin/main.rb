@@ -69,8 +69,8 @@ class Game
     while game_on
       display_board
       if i == 4
-          puts "Game is over"
-          game_on = false
+        puts 'Game is over'
+        game_on = false
       end
       i += 1
     end
