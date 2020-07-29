@@ -18,8 +18,8 @@ class Game
     puts "#{@board[3]} | #{@board[4]} | #{@board[5]}"
     puts '---------'
     puts "#{@board[6]} | #{@board[7]} | #{@board[8]}"
-    player_input(@plyr1)
-    player_input(@plyr2)
+    
+
   end
 
   def player_input(player)
@@ -35,7 +35,11 @@ class Game
       end
       @user_input.positive? && @user_input < 10 ? get_num = false : nil
     end
-    
+    if player == @plyr1
+      @board[@user_input - 1] = "X"
+    else   
+      @board[@user_input - 1] = "Y"  
+    end
   end
 
   def position_taken?(idx)
@@ -61,7 +65,11 @@ class Game
     i = 0
     while game_on
       display_board
-      if i == 4
+      player_input(@plyr1)
+      display_board
+      player_input(@plyr2)
+      num = @board.count{ |x| x.is_a?(Numeric)}
+      if num == 0
         puts 'Game is over'
         game_on = false
       end
