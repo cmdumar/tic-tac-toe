@@ -27,6 +27,24 @@
 # ]
 require_relative '../lib/game'
 
+user = Game.new
+
+def take_turn
+  puts "Please choose a number between 1 and 9:"
+  
+  user_input = gets.chomp.strip
+  # convert user_input to index
+  index = user.player_input_to_index(user_input)
+  if user.valid_move?(index)
+    player_id = current_player
+    user.make_move(index, player_id) #match current player to index
+    user.display_board
+    p "Player " + user.make_move(index, player_id) + " Just played!"
+  else
+    take_turn
+  end
+end
+
 game = Game.new
 game.start_game
-game.playing
+# game.playing
