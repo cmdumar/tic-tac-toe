@@ -1,7 +1,10 @@
-# rubocop:disable Metrics/CyclomaticComplexity
-# rubocop:disable Style/MultipleComparison
-
 class Game
+  attr_accessor :board, :player_input
+  def initialize(player_input)
+    @board = [*1..9]
+    @player_input = player_input
+  end
+
   WINNING_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -13,51 +16,24 @@ class Game
     [2, 4, 6]
   ].freeze
 
-  def initialize
-    @board = [*1..9]
+  def test_input(input)
+    return true if valid_move?(input)
+
+    false
   end
 
-  def display_board
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
-    puts '-----------'
-    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
-    puts '-----------'
-    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
-  end
-
-  def player_input_to_index(user_input)
-    user_input.to_i - 1
+  def change_array(input, sym)
+    @board[input - 1] = sym
   end
 
   def position_taken?(index)
-    !(@board[index].nil? || (@board[index].to_i.positive? && @board[index].to_i < 10))
+    (@board[index].nil? || (@board[index].to_i.positive? && @board[index].to_i < 10))
   end
 
   def valid_move?(index)
-    index.between?(0, 8) && !position_taken?(index)
+    index.between?(0, 8) && position_taken?(index)
   end
-
-  def make_move(index, current_player = 'X')
-    @board[index] = current_player
-  end
-
-  def turn_count
-    counter = 0
-    @board.each do |i|
-      counter += 1 if i == 'X' || i == 'Y'
-    end
-    counter
-  end
-
-  def current_player
-    num_turns = turn_count
-    player = if num_turns.even?
-               'X'
-             else
-               'Y'
-             end
-    player
-  end
+  # rubocop:disable Metrics/CyclomaticComplexity
 
   def check_winner?
     WINNING_COMBINATIONS.each do |combination|
@@ -67,29 +43,20 @@ class Game
 
       return combination if spot1 == 'X' and spot2 == 'X' and spot3 == 'X'
 
-      return combination if spot1 == 'Y' and spot2 == 'Y' and spot3 == 'Y'
+      return combination if spot1 == 'O' and spot2 == 'O' and spot3 == 'O'
     end
     false
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def board_full?
     @board.all? { |i| i.is_a?(String) }
   end
 
   def draw?
-    if !check_winner? && board_full?
-      true
-    else
-      false
-    end
-  end
+    return true if !check_winner? && board_full?
 
-  def game_over?
-    if check_winner? || draw?
-      true
-    else
-      false
-    end
+    false
   end
 
   def winner
@@ -99,38 +66,7 @@ class Game
     if @board[winning_combinatn_arr[0]] == 'X'
       'X'
     else
-      'Y'
+      'O'
     end
-  end
-
-  def take_turn
-    display_board
-    print 'Please enter a number between 1 and 9: '
-    user_input = gets.chomp.strip.to_i
-    index = player_input_to_index(user_input)
-    if valid_move?(index)
-      player_id = current_player
-      make_move(index, player_id)
-      puts "Player #{make_move(index, player_id)} Just played!"
-    else
-      take_turn
-    end
-  end
-
-  def start_game
-    take_turn while game_over? == false
-
-    if check_winner?
-      puts "Hurray! You won, player #{winner}!"
-    elsif draw?
-      puts 'You both draw the game!'
-    end
-  end
-
-  def start
-    Gameable.start_game
   end
 end
-
-# rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Style/MultipleComparison
