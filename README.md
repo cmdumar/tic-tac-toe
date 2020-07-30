@@ -21,7 +21,7 @@ In order to win the game, a player must place three of their marks in a horizont
 
 ## Live Version
 
-####[Live Link](https://repl.it/@mohammadumar28/my-tic-tac-toe) :clap:
+[Live Link](https://repl.it/@mohammadumar28/my-tic-tac-toe) :clap:
 
 ## Authors
 **Muhammad Umar**
