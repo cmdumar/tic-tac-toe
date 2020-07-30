@@ -1,91 +1,57 @@
 #!/usr/bin/env ruby
+require_relative '../lib/game'
+require_relative '../lib/player'
 
-# Game Procedure
-# =================================================================
-# Methods and classes for Game.
-# Two players needed to play game.
-# We need to initialize a game board
-# We need winning combinations
-# Get inputs from the user
-# Get user tokens as "X" and "Y"
-# Each user should take a turn
-# Check turn count
-# check for valid turns of users
-# User should be able to win games
-# User should be able to draw games
-# User should get notification for game over.
-
-# WINNING_COMBINATIONS = [
-#   [0, 1, 2],
-#   [3, 4, 5],
-#   [6, 7, 8],
-#   [0, 3, 6],
-#   [1, 4, 7],
-#   [2, 5, 8],
-#   [0, 4, 8],
-#   [2, 4, 6]
-# ]
-
-class Game
-  def initialize
-    @board = [*1..9]
-  end
-
-  def start_game
-    print 'Player 1: '
-    @plyr1 = gets.chomp
-    print 'Player 2: '
-    @plyr2 = gets.chomp
-    @count = 0
-  end
-
-  def display_board
-    puts "#{@board[0]} | #{@board[1]} | #{@board[2]}"
-    puts '---------'
-    puts "#{@board[3]} | #{@board[4]} | #{@board[5]}"
-    puts '---------'
-    puts "#{@board[6]} | #{@board[7]} | #{@board[8]}"
-  end
-
-  def player_input(player)
-    print "#{player}'s Turn: "
-    @user_input = gets.chomp.to_i
-
-    get_num = true
-
-    while get_num
-      if @user_input <= 0 or @user_input > 9
-        print "#{player}, Pls give a number between 1 and 9: "
-        @user_input = gets.chomp.to_i
-      end
-      if @user_input.positive? && @user_input < 10
-        get_num = false
-        @count += 1
-      end
-    end
-  end
-
-  def playing
-    game_on = true
-    while game_on
-      display_board
-      player_input(@plyr1)
-      puts @count
-      player_input(@plyr2)
-
-      if @count == 9
-        puts 'Game is over'
-        game_on = false
-      end
-    end
-    # Get player input in each iteration
-    # if player_input == true
-    # counter += 1
-    # if counter == 9
-    # Game over
-  end
+def display(board)
+  puts "#{board[0]} | #{board[1]} | #{board[2]}"
+  puts '---------'
+  puts "#{board[3]} | #{board[4]} | #{board[5]}"
+  puts '---------'
+  puts "#{board[6]} | #{board[7]} | #{board[8]}"
 end
 
-game = Game.new
-game.start_game
-game.playing
+print 'Player 1, Type your name: '
+player1 = gets.chomp
+print 'Player 2, Type your name: '
+player2 = gets.chomp
+
+player = Player.new(player1, player2)
+
+player_input = ''
+
+start = Game.new(player_input)
+
+display(start.board)
+
+i = 0
+loop do
+  if start.check_winner?
+    if start.winner == 'X'
+      puts "Hurray! #{player.player1} won the game!"
+    else
+      puts "Hurray! #{player.player2} won the game!"
+    end
+    break
+  end
+  if start.draw?
+    puts 'The Game is Draw!'
+    break
+  end
+  print 'Please type a number between 1 and 9: '
+  player_input = gets.chomp.to_i
+  loop do
+    if start.test_input(player_input - 1)
+      if i.even?
+        start.change_array(player_input, 'X')
+      else
+        start.change_array(player_input, 'O')
+      end
+      i += 1
+      break
+    else
+      print 'Invalid Input => Please type a number between 1 and 9: '
+      player_input = gets.chomp.to_i
+    end
+  end
+  display(start.board)
+end
