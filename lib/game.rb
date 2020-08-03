@@ -33,21 +33,15 @@ class Game
   def valid_move?(index)
     index.between?(0, 8) && position_taken?(index)
   end
-  # rubocop:disable Metrics/CyclomaticComplexity
 
   def check_winner?
     WINNING_COMBINATIONS.each do |combination|
-      spot1 = @board[combination[0]]
-      spot2 = @board[combination[1]]
-      spot3 = @board[combination[2]]
+      spot = [@board[combination[0]], @board[combination[1]], @board[combination[2]]]
 
-      return combination if spot1 == 'X' and spot2 == 'X' and spot3 == 'X'
-
-      return combination if spot1 == 'O' and spot2 == 'O' and spot3 == 'O'
+      return combination if spot.all?('X') || spot.all?('O')
     end
     false
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def board_full?
     @board.all? { |i| i.is_a?(String) }
