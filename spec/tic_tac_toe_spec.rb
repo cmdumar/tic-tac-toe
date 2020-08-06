@@ -25,7 +25,7 @@ describe 'Tic-Tac-Toe Game' do
 
   context '#board_full?' do
     it 'when the board is filled completely' do
-      game = Game.new(['X', 'O', 'X', 'X', 'O', 'X', 'O', 'O', 'X'])
+      game = Game.new(%w[X O X X O X O O X])
       expect(game.board_full?).to be true
     end
 
@@ -61,7 +61,7 @@ describe 'Tic-Tac-Toe Game' do
 
   context '#draw?' do
     it 'when the game is a draw' do
-      game = Game.new(['O', 'X', 'X', 'X', 'O', 'O', 'O', 'X', 'X'])
+      game = Game.new(%w[O X X X O O O X X])
       expect(game.draw?).to be true
     end
   end
