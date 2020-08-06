@@ -38,7 +38,12 @@ loop do
     break
   end
   
-  print 'Please type a number between 1 and 9: '
+  if i.even?
+    print "#{player.player1}, Please type a number between 1 and 9: "
+  else
+    print "#{player.player2}, Please type a number between 1 and 9: "
+  end
+  
   player_input = gets.chomp.to_i
   loop do
     if start.valid_move?(player_input - 1)
