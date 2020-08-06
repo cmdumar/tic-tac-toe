@@ -23,6 +23,19 @@ In order to win the game, a player must place three of their marks in a horizont
 
 [Live Link](https://repl.it/@mohammadumar28/my-tic-tac-toe) :clap:
 
+## Prerequisites
+
+* Ruby (v2.7)
+* RSpec
+
+## Instructions to Test the Project
+
+* Clone the repository
+* cd in to the cloned directory
+* Switch to testing branch by `git checkout rspec-testing`
+* Run `bundle install`
+* Run `rspec`
+
 ## Authors
 **Muhammad Umar**
 
