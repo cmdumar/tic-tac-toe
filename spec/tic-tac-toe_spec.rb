@@ -77,4 +77,16 @@ describe 'Tic-Tac-Toe Game' do
       expect(game.position_taken?(2)).to be false
     end
   end
+
+  context '#change_array' do
+    it 'when the input is by player two' do
+      game = Game.new(['X', 2, 'X', 'O', 5, 6, 7, 8, 9])
+      expect(game.change_array(2, 'O')).to eql('O')
+    end
+
+    it 'when the input is by player one' do
+      game = Game.new(['X', 2, 'X', 'O', 5, 6, 7, 8, 9])
+      expect(game.change_array(2, 'X')).to eql('X')
+    end
+  end
 end
