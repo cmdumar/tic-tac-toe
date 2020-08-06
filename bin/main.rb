@@ -37,10 +37,11 @@ loop do
     puts 'The Game is Draw!'
     break
   end
+  
   print 'Please type a number between 1 and 9: '
   player_input = gets.chomp.to_i
   loop do
-    if start.test_input(player_input - 1)
+    if start.valid_move?(player_input - 1)
       if i.even?
         start.change_array(player_input, 'X')
       else
