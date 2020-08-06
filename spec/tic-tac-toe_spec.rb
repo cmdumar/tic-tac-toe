@@ -65,4 +65,16 @@ describe 'Tic-Tac-Toe Game' do
       expect(game.draw?).to be true
     end
   end
+
+  context '#position_taken?' do
+    it 'when the position is already taken' do
+      game = Game.new(['X', 2, 'X', 'O', 5, 6, 7, 8, 9])
+      expect(game.position_taken?(1)).to be true
+    end
+
+    it 'when the position is not already taken' do
+      game = Game.new(['X', 2, 'X', 'O', 5, 6, 7, 8, 9])
+      expect(game.position_taken?(2)).to be false
+    end
+  end
 end
