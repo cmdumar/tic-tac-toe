@@ -1,8 +1,7 @@
 class Game
   attr_accessor :board, :player_input
-  def initialize(player_input)
-    @board = [*1..9]
-    @player_input = player_input
+  def initialize(board)
+    @board = board
   end
 
   WINNING_COMBINATIONS = [

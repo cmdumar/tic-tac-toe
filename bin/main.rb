@@ -17,9 +17,9 @@ player2 = gets.chomp
 
 player = Player.new(player1, player2)
 
-player_input = ''
+board = [*1..9]
 
-start = Game.new(player_input)
+start = Game.new(board)
 
 display(start.board)
 
