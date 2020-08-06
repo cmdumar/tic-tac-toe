@@ -3,15 +3,16 @@ require_relative '../lib/game'
 require_relative '../lib/player'
 
 def display(board)
-  puts "#{board[0]} | #{board[1]} | #{board[2]}"
-  puts '---------'
-  puts "#{board[3]} | #{board[4]} | #{board[5]}"
-  puts '---------'
-  puts "#{board[6]} | #{board[7]} | #{board[8]}"
+  puts "             #{board[0]} | #{board[1]} | #{board[2]}"
+  puts '             --|---|--'
+  puts "             #{board[3]} | #{board[4]} | #{board[5]}"
+  puts '             --|---|--'
+  puts "             #{board[6]} | #{board[7]} | #{board[8]}"
 end
 
 print 'Player 1, Type your name: '
 player1 = gets.chomp
+puts ''
 print 'Player 2, Type your name: '
 player2 = gets.chomp
 
@@ -21,7 +22,13 @@ board = [*1..9]
 
 start = Game.new(board)
 
+puts ''
+puts ''
+
 display(start.board)
+
+puts ''
+puts ''
 
 i = 0
 loop do
@@ -59,5 +66,12 @@ loop do
       player_input = gets.chomp.to_i
     end
   end
+
+  puts ''
+  puts ''
+
   display(start.board)
+
+  puts ''
+  puts ''
 end
