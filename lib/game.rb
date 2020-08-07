@@ -15,12 +15,6 @@ class Game
     [2, 4, 6]
   ].freeze
 
-  def test_input(input)
-    return true if valid_move?(input)
-
-    false
-  end
-
   def change_array(input, sym)
     @board[input - 1] = sym
   end
